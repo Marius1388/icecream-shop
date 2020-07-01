@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import { Provider,connect } from 'react-redux';
+import store from './store';
+import Order from './components/Order'
+import OrderList from './components/OrderList'
+
+import { getOrders } from './actions';
+
+const mapStateToProps = state => {
+  return ({
+     orders: state.getOrders.orders 
+  })
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      onGetOrders: () => dispatch(getOrders())
+  }
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store = {store}>
+        <div className="App">
+          <h1>hello there</h1>
+          <Order />
+        </div>
+    </Provider>
   );
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
