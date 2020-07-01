@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Order from './Order';
 import {connect} from 'react-redux'
 
 import {getOrders,deleteOrder,editOrder} from '../actions'
 
 const OrderList = props => {
-    const orders = this.props.orders;
+    console.log(props)
+    const orders = props.orders;
     return(
         <div>
             {
