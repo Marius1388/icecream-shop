@@ -1,30 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { Provider,connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './store';
-// import Order from './components/Order'
 import OrderList from './components/OrderList'
 
-import { getOrders } from './actions';
 
-const mapStateToProps = state => {
-  return ({
-     orders: state.orders 
-  })
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-      onGetOrders: () => dispatch(getOrders())
-  }
-}
 
 class App extends Component {
-  
-  componentDidMount(){
-    this.props.onGetOrders();
-  }
+
   
   render(){
     return (
@@ -38,4 +22,4 @@ class App extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

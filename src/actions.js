@@ -1,9 +1,22 @@
 import axios from 'axios';
-import {GET_ORDERS, ADD_ORDER, EDIT_ORDER, DELETE_ORDER, ORDERS_LOADING, GET_ERRORS, CLEAR_ERRORS} from './constants';
+import {GET_PRODUCTS, PRODUCTS_LOADING, GET_ORDERS, ADD_ORDER, EDIT_ORDER, DELETE_ORDER, ORDERS_LOADING, GET_ERRORS, CLEAR_ERRORS} from './constants';
+
+export const getProducts = () => dispatch => {
+    dispatch(setProductsLoading());
+    // axios.get('/api/').then( res => 
+    axios.get('http://localhost:3000/api/products/').then( res => 
+            dispatch({
+                type: GET_PRODUCTS,
+                payload: res.data
+            }))
+            .catch(err =>
+                dispatch(returnErrors(err.response.data, err.response.status)))
+};
 
 export const getOrders = () => dispatch => {
     dispatch(setOrdersLoading());
-    axios.get('/api/').then( res => 
+    // axios.get('/api/').then( res => 
+    axios.get('http://localhost:3000/api/').then( res => 
             dispatch({
                 type: GET_ORDERS,
                 payload: res.data
@@ -52,6 +65,12 @@ export const deleteOrder = id => dispatch => {
 export const setOrdersLoading = () => {
     return{
         type: ORDERS_LOADING
+    }
+}
+
+export const setProductsLoading = () => {
+    return{
+        type: PRODUCTS_LOADING
     }
 }
 

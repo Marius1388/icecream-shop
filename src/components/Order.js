@@ -16,4 +16,4 @@ const Order =({ productName, numberOfScoops, pricePerScoop,totalCost }) => {
 
 
 
-export default Order;
+export default Order; 

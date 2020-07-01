@@ -3,6 +3,6 @@ import orderReducer from './orderReducer';
 import errorReducer from './errorReducer';
 
 export default combineReducers({
-    order: orderReducer,
+    orders: orderReducer,
     error: errorReducer
 })

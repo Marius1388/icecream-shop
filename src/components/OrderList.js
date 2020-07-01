@@ -4,9 +4,9 @@ import {connect} from 'react-redux'
 
 import {getOrders,deleteOrder,editOrder} from '../actions'
 
-const OrderList = props => {
-    console.log(props)
-    const orders = props.orders;
+const OrderList = ({orders}) => {
+     console.log(orders)
+    // const orders = props.orders;
     return(
         <div>
             {
@@ -28,8 +28,14 @@ const OrderList = props => {
 
 const mapStateToProps = state => {
     return {
-       orders: state.orders 
+       orders: state.orders.orders
     }
  }
 
-export default connect(mapStateToProps, {getOrders,deleteOrder,editOrder})(OrderList);
+ const mapDispatchToProps = (dispatch) => {
+    return{
+        onGetOrders: () => dispatch(getOrders())
+    }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderList);

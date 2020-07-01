@@ -1,12 +1,19 @@
-import {GET_ORDERS, ADD_ORDER, EDIT_ORDER, DELETE_ORDER, ORDERS_LOADING} from '../constants'
+import {GET_PRODUCTS, PRODUCTS_LOADING, GET_ORDERS, ADD_ORDER, EDIT_ORDER, DELETE_ORDER, ORDERS_LOADING} from '../constants'
 
 const initialState = {
+    products:[],
     orders:[],
     loading: false
 }
 
-export default function(state = initialState, action) {
+export default function orders(state = initialState, action) {
     switch(action.type){
+        case GET_PRODUCTS:
+            return{
+                ...state,
+                products: action.payload,
+                loading: false
+            }
         case GET_ORDERS:
             return{
                 ...state,
@@ -29,6 +36,11 @@ export default function(state = initialState, action) {
                 orders: state.orders.filter(order =>order._id === action.payload)[0]
         }
         case ORDERS_LOADING:
+            return{
+                ...state,
+                loading: true
+            }
+        case PRODUCTS_LOADING:
             return{
                 ...state,
                 loading: true
