@@ -1,14 +1,19 @@
 import React from 'react';
 import Order from './Order';
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
-import {getOrders,deleteOrder,editOrder} from '../actions'
+import {getOrders} from '../actions'
 
 const OrderList = ({orders}) => {
      console.log(orders)
     // const orders = props.orders;
     return(
         <div>
+            <div>
+                <h1>OrderList Component</h1>
+                <span>here should be displayed all the orders made so far</span>
+            </div>
             {
                 orders.map((order,i) =>{
                     return (<Order 
@@ -22,6 +27,10 @@ const OrderList = ({orders}) => {
                         );
                 })
             }
+            <div>
+                 <Link  to='/addorder'> Add new order </Link>
+            </div>
+           
         </div>
     )
 }

@@ -26,7 +26,8 @@ export const getOrders = () => dispatch => {
 };
 
 export const addOrder = order => dispatch => {
-    axios.post('/api/', order)
+    // axios.post('/api/', order)
+    axios.post('http://localhost:3000/api/', order,null)
         .then(res => 
             dispatch({
                 type:ADD_ORDER,
