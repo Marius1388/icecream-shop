@@ -1,36 +1,39 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
-import { getProducts } from '../actions';
-import { useSelector } from 'react-redux';
+import { getProductsStartAsync } from '../redux/actions/productActions';
 
-const OrderInput = () => {
-	getProducts();
-	const products = useSelector((state) => state.products);
+class OrderInput extends React.Component {
+	componentDidMount() {
+		const { getProductsStartAsync } = this.props;
 
-	// console.log(products);
+		getProductsStartAsync();
+	}
 
-	return (
-		<div>
-			<h1> Order one</h1>
-			<Form>
-				<FormGroup>
-					<Label for="exampleSelect">Select</Label>
-					<Input type="select" name="select" id="exampleSelect">
-						{products.map((product) => (
-							<option>product.name</option>
-						))}
-					</Input>
-				</FormGroup>
-			</Form>
-		</div>
-	);
-};
+	render() {
+		const { products } = this.props;
+		console.log(`props are ${this.props.products}`);
 
-const mapStateToProps = (state) => {
-	return {
-		products: state.products,
-	};
-};
+		return (
+			<div>
+				<h1> Order one</h1>
+				<Form>
+					<FormGroup>
+						<Label for="exampleSelect">Select</Label>
+						<Input type="select" name="select" id="exampleSelect">
+							{products.map((product) => (
+								<option>product.name</option>
+							))}
+						</Input>
+					</FormGroup>
+				</Form>
+			</div>
+		);
+	}
+}
 
-export default connect(mapStateToProps)(OrderInput);
+const mapDispatchToProps = (dispatch) => ({
+	getProductsStartAsync: () => dispatch(getProductsStartAsync()),
+});
+
+export default connect(null, mapDispatchToProps)(OrderInput);

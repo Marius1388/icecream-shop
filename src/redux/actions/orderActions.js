@@ -1,14 +1,11 @@
 import axios from 'axios';
 import {
-	GET_PRODUCTS,
 	GET_ORDERS,
 	ADD_ORDER,
 	EDIT_ORDER,
 	DELETE_ORDER,
 	ORDERS_LOADING,
-	GET_ERRORS,
-	CLEAR_ERRORS,
-} from './constants';
+} from '../constants';
 
 export const getOrders = () => (dispatch) => {
 	dispatch(setOrdersLoading());
@@ -18,23 +15,6 @@ export const getOrders = () => (dispatch) => {
 			// axios.get('http://localhost:3000/api/').then((res) =>
 			dispatch({
 				type: GET_ORDERS,
-				payload: res.data,
-			})
-		)
-		.catch((err) =>
-			dispatch(returnErrors(err.response.data, err.response.status))
-		);
-};
-
-export const getProducts = () => (dispatch) => {
-	// axios
-	// 	.get('/api/products/')
-	// 	.then((res) =>
-	axios
-		.get('http://localhost:3000/api/products/')
-		.then((res) =>
-			dispatch({
-				type: GET_PRODUCTS,
 				payload: res.data,
 			})
 		)
@@ -89,20 +69,5 @@ export const deleteOrder = (id) => (dispatch) => {
 export const setOrdersLoading = () => {
 	return {
 		type: ORDERS_LOADING,
-	};
-};
-
-// RETURN ERRORS
-export const returnErrors = (msg, status, id = null) => {
-	return {
-		type: GET_ERRORS,
-		payload: { msg, status, id },
-	};
-};
-
-// CLEAR ERRORS
-export const clearErrors = () => {
-	return {
-		type: CLEAR_ERRORS,
 	};
 };

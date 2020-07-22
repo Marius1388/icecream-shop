@@ -8,6 +8,7 @@ import {
 
 const initialState = {
 	orders: [],
+	loading: false,
 };
 
 export default function orderReducer(state = initialState, action) {
