@@ -19,13 +19,16 @@ export const getProductsFailure = (errorMessage) => ({
 	payload: errorMessage,
 });
 
-export const getProductsStartAsync = () => (dispatch) => {
+export const getProductsStartAsync = () => async (dispatch) => {
 	dispatch(getProductsStart());
-	// axios
-	// 	.get('/api/products/')
-	// 	.then((res) =>
-	axios
-		.get('http://localhost:3000/api/products')
-		.then((res) => dispatch(getProductsSuccess(res)))
-		.catch((err) => dispatch(getProductsFailure(err)));
+	try {
+		const response = await axios.get('http://localhost:3000/api/products');
+		const data = await response.data;
+		console.log(`data requested issss ${JSON.stringify(data)}`);
+
+		dispatch(getProductsSuccess(data));
+	} catch (error) {
+		const errorResponse = error.response.data || 'Something went wrong';
+		dispatch(getProductsFailure(errorResponse));
+	}
 };

@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
-import { getProductsStartAsync } from '../redux/actions/productActions';
+import { getProductsStartAsync } from '../../redux/actions/productActions';
 
 class OrderInput extends React.Component {
 	componentDidMount() {
@@ -11,11 +12,10 @@ class OrderInput extends React.Component {
 	}
 
 	render() {
-		const { products } = this.props;
-		console.log(`props are ${this.props.products}`);
+		const { products } = this.props.products;
 
 		return (
-			<div>
+			<div className="orderInput-page">
 				<h1> Order one</h1>
 				<Form>
 					<FormGroup>
