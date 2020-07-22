@@ -8,7 +8,7 @@ const initialState = {};
 
 const middleware = [thunk];
 if (process.env.NODE_ENV === 'development') {
-	middlewares.push(logger);
+	middleware.push(logger);
 }
 
 const store = createStore(

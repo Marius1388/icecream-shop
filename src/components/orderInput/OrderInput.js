@@ -22,7 +22,7 @@ class OrderInput extends React.Component {
 						<Label for="exampleSelect">Select</Label>
 						<Input type="select" name="select" id="exampleSelect">
 							{products.map((product) => (
-								<option>product.name</option>
+								<option>{product.name}</option>
 							))}
 						</Input>
 					</FormGroup>
@@ -32,8 +32,12 @@ class OrderInput extends React.Component {
 	}
 }
 
+const mapStateToProps = (state) => ({
+	products: state.products,
+});
+
 const mapDispatchToProps = (dispatch) => ({
 	getProductsStartAsync: () => dispatch(getProductsStartAsync()),
 });
 
-export default connect(null, mapDispatchToProps)(OrderInput);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderInput);
