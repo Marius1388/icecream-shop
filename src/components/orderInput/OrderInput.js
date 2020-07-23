@@ -5,6 +5,15 @@ import { connect } from 'react-redux';
 import { getProductsStartAsync } from '../../redux/actions/productActions';
 
 class OrderInput extends React.Component {
+	state = {
+		selectedProduct: undefined,
+	};
+	onSelectItem = (e) => {
+		this.setState({
+			[e.target.name]: e.target.value,
+		});
+	};
+
 	componentDidMount() {
 		const { getProductsStartAsync } = this.props;
 
@@ -17,12 +26,17 @@ class OrderInput extends React.Component {
 		return (
 			<div className="orderInput-page">
 				<h1> Order one</h1>
-				<Form>
+				<Form className="form">
 					<FormGroup>
 						<Label for="exampleSelect">Select</Label>
-						<Input type="select" name="select" id="exampleSelect">
+						<Input
+							type="select"
+							name="select"
+							id="exampleSelect"
+							onClick={this.onSelectItem}
+						>
 							{products.map((product) => (
-								<option>{product.name}</option>
+								<option key={product._id}>{product.name}</option>
 							))}
 						</Input>
 					</FormGroup>
