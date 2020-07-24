@@ -1,6 +1,8 @@
 import {
 	GET_ORDERS,
-	ADD_ORDER,
+	ADD_ORDER_SUCCES,
+	ADD_ORDER_START,
+	ADD_ORDER_FAILURE,
 	EDIT_ORDER,
 	DELETE_ORDER,
 	ORDERS_LOADING,
@@ -8,7 +10,7 @@ import {
 
 const initialState = {
 	orders: [],
-	loading: false,
+	loading: true,
 };
 
 export default function orderReducer(state = initialState, action) {
@@ -24,10 +26,22 @@ export default function orderReducer(state = initialState, action) {
 				...state,
 				orders: state.orders.filter((order) => order._id !== action.payload),
 			};
-		case ADD_ORDER:
+		case ADD_ORDER_START:
+			return {
+				...state,
+				sending: true,
+			};
+		case ADD_ORDER_SUCCES:
 			return {
 				...state,
 				orders: [action.payload, ...state.orders],
+				sending: false,
+			};
+		case ADD_ORDER_FAILURE:
+			return {
+				...state,
+				sending: false,
+				error: action.payload,
 			};
 		case EDIT_ORDER:
 			return {

@@ -1,7 +1,9 @@
 import axios from 'axios';
 import {
 	GET_ORDERS,
-	ADD_ORDER,
+	ADD_ORDER_START,
+	ADD_ORDER_SUCCES,
+	ADD_ORDER_FAILURE,
 	EDIT_ORDER,
 	DELETE_ORDER,
 	ORDERS_LOADING,
@@ -24,19 +26,23 @@ export const getOrders = () => (dispatch) => {
 		);
 };
 
-export const addOrder = (order) => (dispatch) => {
-	axios
-		.post('/api/', order)
-		// axios.post('http://localhost:3000/api/', order, null)
-		.then((res) =>
-			dispatch({
-				type: ADD_ORDER,
-				payload: res.data,
-			})
-		)
-		.catch((err) =>
-			dispatch(returnErrors(err.response.data, err.response.status))
-		);
+export const addOrderAsync = (order) => async (dispatch) => {
+	// axios
+	// 	.post('/api/', order)
+	dispatch({ type: ADD_ORDER_START });
+
+	try {
+		const response = await axios.post('http://localhost:3000/api/', order, {
+			'Content-Type': 'application/json',
+		});
+		const data = await response.data;
+		console.log(data);
+		dispatch({ type: ADD_ORDER_SUCCES, payload: data });
+	} catch (error) {
+		const errorResponse = error.response.data || 'Something went wrong';
+
+		dispatch({ type: ADD_ORDER_FAILURE, payload: errorResponse });
+	}
 };
 
 export const editOrder = (order) => (dispatch) => {

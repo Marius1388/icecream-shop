@@ -24,7 +24,6 @@ export const getProductsStartAsync = () => async (dispatch) => {
 	try {
 		const response = await axios.get('http://localhost:3000/api/products');
 		const data = await response.data;
-		console.log(`data requested issss ${JSON.stringify(data)}`);
 
 		dispatch(getProductsSuccess(data));
 	} catch (error) {
