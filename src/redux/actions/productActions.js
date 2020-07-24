@@ -22,7 +22,7 @@ export const getProductsFailure = (errorMessage) => ({
 export const getProductsStartAsync = () => async (dispatch) => {
 	dispatch(getProductsStart());
 	try {
-		const response = await axios.get('http://localhost:3000/api/products');
+		const response = await axios.get('/api/products');
 		const data = await response.data;
 
 		dispatch(getProductsSuccess(data));

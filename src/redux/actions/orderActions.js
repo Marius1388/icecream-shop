@@ -15,7 +15,6 @@ export const getOrders = () => (dispatch) => {
 	axios
 		.get('/api/')
 		.then((res) =>
-			// axios.get('http://localhost:3000/api/').then((res) =>
 			dispatch({
 				type: GET_ORDERS,
 				payload: res.data,
@@ -27,14 +26,10 @@ export const getOrders = () => (dispatch) => {
 };
 
 export const addOrderAsync = (order) => async (dispatch) => {
-	// axios
-	// 	.post('/api/', order)
 	dispatch({ type: ADD_ORDER_START });
 
 	try {
-		const response = await axios.post('http://localhost:3000/api/', order, {
-			'Content-Type': 'application/json',
-		});
+		const response = await axios.post('/api/', order);
 		const data = await response.data;
 
 		dispatch({ type: ADD_ORDER_SUCCES, payload: data });
