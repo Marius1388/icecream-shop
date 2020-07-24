@@ -31,6 +31,7 @@ export const addOrderAsync = (order) => async (dispatch) => {
 	try {
 		const response = await axios.post('/api/', order);
 		const data = await response.data;
+		console.log(`data from addOrderAsync is:  ${data}`);
 
 		dispatch({ type: ADD_ORDER_SUCCES, payload: data });
 	} catch (error) {
@@ -38,7 +39,6 @@ export const addOrderAsync = (order) => async (dispatch) => {
 
 		dispatch({ type: ADD_ORDER_FAILURE, payload: errorResponse });
 	}
-	console.log(`order from addOrderAsync is:  ${order}`);
 };
 
 export const editOrder = (order) => (dispatch) => {
