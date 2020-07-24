@@ -52,7 +52,6 @@ class OrderInput extends React.Component {
 			this.setState({ msg: null });
 			console.log('trying to add');
 			addOrderAsync(newOrder);
-			console.log('addOrderAsync got triggered');
 		} else {
 			this.setState({ msg: 'Please enter all fields' });
 		}

@@ -36,13 +36,14 @@ export const addOrderAsync = (order) => async (dispatch) => {
 			'Content-Type': 'application/json',
 		});
 		const data = await response.data;
-		console.log(data);
+
 		dispatch({ type: ADD_ORDER_SUCCES, payload: data });
 	} catch (error) {
 		const errorResponse = error.response.data || 'Something went wrong';
 
 		dispatch({ type: ADD_ORDER_FAILURE, payload: errorResponse });
 	}
+	console.log(`order from addOrderAsync is:  ${order}`);
 };
 
 export const editOrder = (order) => (dispatch) => {
