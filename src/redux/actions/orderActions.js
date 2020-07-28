@@ -1,8 +1,9 @@
-import axios from 'axios';
+import fetchingData from '../../apis/fetchingData';
+
 import {
 	GET_ORDERS,
 	ADD_ORDER_START,
-	ADD_ORDER_SUCCES,
+	ADD_ORDER_SUCCESS,
 	ADD_ORDER_FAILURE,
 	EDIT_ORDER,
 	DELETE_ORDER,
@@ -12,7 +13,7 @@ import { returnErrors } from './errorActions';
 
 export const getOrders = () => (dispatch) => {
 	dispatch(setOrdersLoading());
-	axios
+	fetchingData
 		.get('/api/')
 		.then((res) =>
 			dispatch({
@@ -27,13 +28,14 @@ export const getOrders = () => (dispatch) => {
 
 export const addOrderAsync = (order) => async (dispatch) => {
 	dispatch({ type: ADD_ORDER_START });
+	console.log('just print something here');
 
 	try {
-		const response = await axios.post('/api/', order);
+		const response = await fetchingData.post('/api/', order);
 		const data = await response.data;
 		console.log(`data from addOrderAsync is:  ${data}`);
 
-		dispatch({ type: ADD_ORDER_SUCCES, payload: data });
+		dispatch({ type: ADD_ORDER_SUCCESS, payload: data });
 	} catch (error) {
 		const errorResponse = error.response.data || 'Something went wrong';
 
@@ -42,7 +44,7 @@ export const addOrderAsync = (order) => async (dispatch) => {
 };
 
 export const editOrder = (order) => (dispatch) => {
-	axios
+	fetchingData
 		.put(`/api/${order.id}`, order)
 		.then((res) =>
 			dispatch({
@@ -56,7 +58,7 @@ export const editOrder = (order) => (dispatch) => {
 };
 
 export const deleteOrder = (id) => (dispatch) => {
-	axios
+	fetchingData
 		.delete(`/api/${id}`)
 		.then((res) =>
 			dispatch({

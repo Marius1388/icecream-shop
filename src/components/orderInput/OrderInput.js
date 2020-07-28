@@ -35,9 +35,9 @@ class OrderInput extends React.Component {
 			totalCost: e.target.value * this.state.pricePerScoop,
 		});
 	};
-	onSubmit = (e) => {
-		const { addOrderAsync } = this.props;
+	onSubmitForm = (e) => {
 		e.preventDefault();
+		const { addOrderAsync } = this.props;
 
 		const newOrder = {
 			flavour: this.state.flavour,
@@ -69,7 +69,7 @@ class OrderInput extends React.Component {
 			<div className="orderInput-page">
 				<h1> Order one</h1>
 				{this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
-				<Form className="form" onSubmit={this.onSubmit}>
+				<Form className="form" onSubmit={this.onSubmitForm}>
 					<FormGroup>
 						<Label for="flavour">Select Flavour </Label>
 						<Input
@@ -115,6 +115,7 @@ class OrderInput extends React.Component {
 
 const mapStateToProps = (state) => ({
 	products: state.products,
+	orders: state.orders,
 });
 
 const mapDispatchToProps = (dispatch) => ({

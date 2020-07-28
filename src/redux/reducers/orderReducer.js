@@ -1,6 +1,6 @@
 import {
 	GET_ORDERS,
-	ADD_ORDER_SUCCES,
+	ADD_ORDER_SUCCESS,
 	ADD_ORDER_START,
 	ADD_ORDER_FAILURE,
 	EDIT_ORDER,
@@ -10,7 +10,8 @@ import {
 
 const initialState = {
 	orders: [],
-	loading: true,
+	sending: false,
+	errorMessage: undefined,
 };
 
 export default function orderReducer(state = initialState, action) {
@@ -31,7 +32,7 @@ export default function orderReducer(state = initialState, action) {
 				...state,
 				sending: true,
 			};
-		case ADD_ORDER_SUCCES:
+		case ADD_ORDER_SUCCESS:
 			return {
 				...state,
 				orders: [action.payload, ...state.orders],
