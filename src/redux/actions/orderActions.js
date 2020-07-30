@@ -1,4 +1,5 @@
 import fetchingData from '../../apis/fetchingData';
+import { tokenConfig } from './authActions';
 
 import {
 	GET_ORDERS,
@@ -26,15 +27,14 @@ export const getOrders = () => (dispatch) => {
 		);
 };
 
-export const addOrderAsync = (order) => async (dispatch) => {
+export const addOrderAsync = (order) => async (dispatch, getState) => {
 	dispatch({ type: ADD_ORDER_START });
-	const headers = {
-		'Content-Type': 'application/json',
-	};
 	try {
-		const response = await fetchingData.post('/api', order, {
-			headers: headers,
-		});
+		const response = await fetchingData.post(
+			'/api',
+			order,
+			tokenConfig(getState)
+		);
 
 		const data = await response.data;
 		dispatch({ type: ADD_ORDER_SUCCESS, payload: data });

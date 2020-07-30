@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Alert, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
-import { getProductsStartAsync } from '../../redux/actions/productActions';
-import { addOrderAsync } from '../../redux/actions/orderActions';
+import { getProductsStartAsync } from '../redux/actions/productActions';
+import { addOrderAsync } from '../redux/actions/orderActions';
 import PropTypes from 'prop-types';
 
 class OrderInput extends React.Component {
@@ -41,6 +41,7 @@ class OrderInput extends React.Component {
 	onSubmitForm = (e) => {
 		e.preventDefault();
 		const { addOrderAsync } = this.props;
+		const isAuthenticated = this.props.isAuthenticated;
 
 		const newOrder = {
 			flavour: this.state.flavour,
@@ -52,9 +53,12 @@ class OrderInput extends React.Component {
 		//Add orders via addOrder action
 		if (this.state.flavour && this.state.numberOfScoops) {
 			this.setState({ msg: null });
-			console.log(`trying to add order: ${JSON.stringify(newOrder)}`);
-
-			addOrderAsync(newOrder);
+			// console.log(`trying to add order: ${JSON.stringify(newOrder)}`);
+			if (!isAuthenticated) {
+				this.setState({ msg: 'Please log in to place order' });
+			} else {
+				addOrderAsync(newOrder);
+			}
 		} else {
 			this.setState({ msg: 'Please enter all fields' });
 		}
@@ -69,10 +73,17 @@ class OrderInput extends React.Component {
 		const { products } = this.props.products;
 
 		return (
-			<div className="orderInput-page">
+			<div className="container w-25">
 				<h1> Order one</h1>
 				{this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
-				<Form className="form" onSubmit={this.onSubmitForm}>
+
+				<Form
+					className="form"
+					onSubmit={this.onSubmitForm}
+					onKeyPress={() => (e) => {
+						e.key === 'Enter' && e.preventDefault();
+					}}
+				>
 					<FormGroup>
 						<Label for="flavour">Select Flavour </Label>
 						<Input
@@ -100,17 +111,20 @@ class OrderInput extends React.Component {
 							name="numberOfScoops"
 							id="numberOfScoops"
 							min="0"
-							style={{ maxWidth: 40 }}
+							className="w-50"
 							onChange={this.onChange}
 						></Input>
 					</FormGroup>
-					<br></br>
 					<FormGroup>
 						<h2> Your total is ${this.state.totalCost}</h2>
 					</FormGroup>
-					<Button color="dark" style={{ marginTop: '2rem' }} block>
-						Add Order
-					</Button>
+					{this.props.isAuthenticated ? (
+						<Button color="dark" className="d-flex justify-content-center">
+							Add Order
+						</Button>
+					) : (
+						<h4 className="mb-3 ml-4">Please log in to add this order</h4>
+					)}
 				</Form>
 			</div>
 		);
@@ -119,6 +133,7 @@ class OrderInput extends React.Component {
 
 const mapStateToProps = (state) => ({
 	products: state.products,
+	isAuthenticated: state.auth.isAuthenticated,
 });
 
 const mapDispatchToProps = (dispatch) => ({
