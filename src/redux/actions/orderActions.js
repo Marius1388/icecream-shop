@@ -28,13 +28,15 @@ export const getOrders = () => (dispatch) => {
 
 export const addOrderAsync = (order) => async (dispatch) => {
 	dispatch({ type: ADD_ORDER_START });
-	console.log('just print something here');
-
+	const headers = {
+		'Content-Type': 'application/json',
+	};
 	try {
-		const response = await fetchingData.post('/api/', order);
-		const data = await response.data;
-		console.log(`data from addOrderAsync is:  ${data}`);
+		const response = await fetchingData.post('/api', order, {
+			headers: headers,
+		});
 
+		const data = await response.data;
 		dispatch({ type: ADD_ORDER_SUCCESS, payload: data });
 	} catch (error) {
 		const errorResponse = error.response.data || 'Something went wrong';

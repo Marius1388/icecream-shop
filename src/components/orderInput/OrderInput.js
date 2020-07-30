@@ -26,13 +26,16 @@ class OrderInput extends React.Component {
 		this.setState({
 			flavour: obj.name,
 			pricePerScoop: obj.pricePerScoop,
+			numberOfScoops: null,
+			totalCost: null,
 		});
 	};
 
 	onChange = (e) => {
+		const price = this.state.pricePerScoop;
 		this.setState({
 			numberOfScoops: e.target.value,
-			totalCost: e.target.value * this.state.pricePerScoop,
+			totalCost: e.target.value * price,
 		});
 	};
 	onSubmitForm = (e) => {
@@ -45,12 +48,12 @@ class OrderInput extends React.Component {
 			pricePerScoop: this.state.pricePerScoop,
 			totalCost: this.state.totalCost,
 		};
-		console.log(newOrder);
 
 		//Add orders via addOrder action
 		if (this.state.flavour && this.state.numberOfScoops) {
 			this.setState({ msg: null });
-			console.log('trying to add');
+			console.log(`trying to add order: ${JSON.stringify(newOrder)}`);
+
 			addOrderAsync(newOrder);
 		} else {
 			this.setState({ msg: 'Please enter all fields' });
@@ -78,7 +81,7 @@ class OrderInput extends React.Component {
 							id="flavourSelect"
 							onClick={this.onSelect}
 						>
-							<option defaultValue="- Pick one -">- Pick one -</option>
+							<option defaultValue="- Pick one -">Pick one !</option>
 							{products.map((product) => (
 								<option key={product._id} value={JSON.stringify(product)}>
 									{product.name}
@@ -96,9 +99,10 @@ class OrderInput extends React.Component {
 							type="number"
 							name="numberOfScoops"
 							id="numberOfScoops"
+							min="0"
 							style={{ maxWidth: 40 }}
 							onChange={this.onChange}
-						/>
+						></Input>
 					</FormGroup>
 					<br></br>
 					<FormGroup>
@@ -115,11 +119,10 @@ class OrderInput extends React.Component {
 
 const mapStateToProps = (state) => ({
 	products: state.products,
-	orders: state.orders,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	addOrderAsync: () => dispatch(addOrderAsync),
+	addOrderAsync: (order) => dispatch(addOrderAsync(order)),
 	getProductsStartAsync: () => dispatch(getProductsStartAsync()),
 });
 
