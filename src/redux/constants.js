@@ -7,6 +7,7 @@ export const ADD_ORDER_START = 'ADD_ORDER_START';
 export const ADD_ORDER_SUCCESS = 'ADD_ORDER_SUCCESS';
 export const ADD_ORDER_FAILURE = 'ADD_ORDER_FAILURE';
 export const GET_ORDERS = 'GET_ORDERS';
+export const FETCH_ORDER = 'FETCH_ORDER';
 export const EDIT_ORDER = 'EDIT_ORDER';
 export const DELETE_ORDER = 'DELETE_ORDER';
 export const ORDERS_LOADING = 'ORDERS_LOADING';

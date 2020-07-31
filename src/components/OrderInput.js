@@ -122,9 +122,7 @@ class OrderInput extends React.Component {
 						<Button color="dark" className="d-flex justify-content-center">
 							Add Order
 						</Button>
-					) : (
-						<h4 className="mb-3 ml-4">Please log in to add this order</h4>
-					)}
+					) : null}
 				</Form>
 			</div>
 		);

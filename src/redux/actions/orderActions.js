@@ -1,5 +1,6 @@
 import fetchingData from '../../apis/fetchingData';
 import { tokenConfig } from './authActions';
+import history from '../../history';
 
 import {
 	GET_ORDERS,
@@ -9,6 +10,7 @@ import {
 	EDIT_ORDER,
 	DELETE_ORDER,
 	ORDERS_LOADING,
+	FETCH_ORDER,
 } from '../constants';
 import { returnErrors } from './errorActions';
 
@@ -37,12 +39,19 @@ export const addOrderAsync = (order) => async (dispatch, getState) => {
 		);
 
 		const data = await response.data;
+		// console.log(JSON.stringify(data) + 'after await');
 		dispatch({ type: ADD_ORDER_SUCCESS, payload: data });
+		history.push('/');
 	} catch (error) {
 		const errorResponse = error.response.data || 'Something went wrong';
 
 		dispatch({ type: ADD_ORDER_FAILURE, payload: errorResponse });
 	}
+};
+
+export const fetchOrder = (id) => async (dispatch) => {
+	const response = await fetchingData.get(`/api/${id}`);
+	dispatch({ type: FETCH_ORDER, payload: response.data });
 };
 
 export const editOrder = (order) => (dispatch) => {
