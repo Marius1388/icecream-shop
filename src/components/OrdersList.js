@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-	getOrders,
-	deleteOrder,
-	editOrder,
-} from '../redux/actions/orderActions';
+import { getOrders, deleteOrder } from '../redux/actions/orderActions';
 import { Button, ListGroup, ListGroupItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -22,9 +18,10 @@ class OrdersList extends Component {
 		const { getOrders } = this.props;
 		getOrders();
 	}
-	onEditClick = (order) => {
-		editOrder(this.props.order);
-	};
+
+	shouldComponentUpdate() {
+		return true;
+	}
 	onDeleteClick = (id) => {
 		this.props.deleteOrder(id);
 	};
@@ -39,12 +36,12 @@ class OrdersList extends Component {
 						color="dark"
 						style={{ marginBottom: '2rem' }}
 						// send user to create order page
-						href="/order"
+						href="/orders/new"
 					>
 						Add new order
 					</Button>
 				) : (
-					<h4 className="mb-3 ml-4">Please log in to manage icecream items</h4>
+					<h4 className="mb-3 ml-4">Please log in to manage icecream orders</h4>
 				)}
 				<ListGroup className="w-75">
 					{orders.map((order) => (
@@ -55,22 +52,18 @@ class OrdersList extends Component {
 							</div>
 							{this.props.isAuthenticated ? (
 								<div>
-									<Button
-										className="p-2"
-										color="danger"
-										size="sm"
-										onClick={this.onDeleteClick.bind(this, order._id)}
-									>
-										&times;
-									</Button>
 									<Link
-										className="button p-2"
-										color="warning"
-										size="sm"
+										className="btn btn-warning p-2 mr-1"
 										to={`/orders/edit/${order._id}`}
 									>
 										Edit
 									</Link>
+									<Button
+										className="btn btn-danger p-2"
+										onClick={this.onDeleteClick.bind(this, order._id)}
+									>
+										Delete
+									</Button>
 								</div>
 							) : null}
 						</ListGroupItem>
@@ -89,7 +82,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
 	getOrders: () => dispatch(getOrders()),
 	deleteOrder: (id) => dispatch(deleteOrder(id)),
-	editOrder: (order) => dispatch(editOrder(order)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrdersList);

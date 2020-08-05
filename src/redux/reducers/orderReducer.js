@@ -6,9 +6,13 @@ import {
 	EDIT_ORDER,
 	DELETE_ORDER,
 	ORDERS_LOADING,
+	FETCH_ORDER,
+	FETCH_ORDER_START,
+	FETCH_ORDER_FAILURE,
 } from '../constants';
 
 const initialState = {
+	selectedOrder: {},
 	orders: [],
 	sending: false,
 	errorMessage: undefined,
@@ -45,9 +49,31 @@ export default function orderReducer(state = initialState, action) {
 				error: action.payload,
 			};
 		case EDIT_ORDER:
+			const updatedOrders = state.orders.map((order) => {
+				if (order._id === action.payload._id) {
+					order = action.payload;
+				}
+				return order;
+			});
 			return {
 				...state,
-				orders: state.orders.filter((order) => order._id === action.payload)[0],
+				orders: updatedOrders,
+			};
+		case FETCH_ORDER_START:
+			return {
+				...state,
+			};
+		case FETCH_ORDER:
+			return {
+				...state,
+				selectedOrder: state.orders.filter(
+					(order) => order._id === action.payload._id
+				)[0],
+			};
+		case FETCH_ORDER_FAILURE:
+			return {
+				...state,
+				error: action.payload,
 			};
 		case ORDERS_LOADING:
 			return {

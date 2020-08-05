@@ -11,6 +11,8 @@ import {
 	DELETE_ORDER,
 	ORDERS_LOADING,
 	FETCH_ORDER,
+	FETCH_ORDER_START,
+	FETCH_ORDER_FAILURE,
 } from '../constants';
 import { returnErrors } from './errorActions';
 
@@ -37,7 +39,6 @@ export const addOrderAsync = (order) => async (dispatch, getState) => {
 			order,
 			tokenConfig(getState)
 		);
-
 		const data = await response.data;
 		// console.log(JSON.stringify(data) + 'after await');
 		dispatch({ type: ADD_ORDER_SUCCESS, payload: data });
@@ -50,13 +51,21 @@ export const addOrderAsync = (order) => async (dispatch, getState) => {
 };
 
 export const fetchOrder = (id) => async (dispatch) => {
-	const response = await fetchingData.get(`/api/${id}`);
-	dispatch({ type: FETCH_ORDER, payload: response.data });
+	dispatch({ type: FETCH_ORDER_START });
+	try {
+		const response = await fetchingData.get(`/api/${id}`);
+		const data = await response.data;
+		dispatch({ type: FETCH_ORDER, payload: data });
+	} catch (error) {
+		const errorResponse = error.response || 'Something went wrong';
+
+		dispatch({ type: FETCH_ORDER_FAILURE, payload: errorResponse });
+	}
 };
 
 export const editOrder = (order) => (dispatch) => {
 	fetchingData
-		.put(`/api/${order.id}`, order)
+		.put(`/api/${order._id}`, order)
 		.then((res) =>
 			dispatch({
 				type: EDIT_ORDER,
@@ -65,7 +74,8 @@ export const editOrder = (order) => (dispatch) => {
 		)
 		.catch((err) =>
 			dispatch(returnErrors(err.response.data, err.response.status))
-		);
+		)
+		.finally(history.push('/'));
 };
 
 export const deleteOrder = (id) => (dispatch) => {

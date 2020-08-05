@@ -21,7 +21,7 @@ class App extends Component {
 					<Switch>
 						<Route exact path="/" component={OrdersList} />
 						<Route exact path="/orders/new" component={OrderInput} />
-						<Route exact path="/orders/edit" component={OrderEdit} />
+						<Route exact path="/orders/edit/:id" component={OrderEdit} />
 					</Switch>
 				</div>
 			</Provider>
