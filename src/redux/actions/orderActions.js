@@ -1,4 +1,5 @@
-import fetchingData from '../../apis/fetchingData';
+// import fetchingData from '../../apis/fetchingData';
+import axios from 'axios';
 import { tokenConfig } from './authActions';
 import history from '../../history';
 
@@ -18,7 +19,7 @@ import { returnErrors } from './errorActions';
 
 export const getOrders = () => (dispatch) => {
 	dispatch(setOrdersLoading());
-	fetchingData
+	axios
 		.get('/api/')
 		.then((res) =>
 			dispatch({
@@ -34,11 +35,8 @@ export const getOrders = () => (dispatch) => {
 export const addOrderAsync = (order) => async (dispatch, getState) => {
 	dispatch({ type: ADD_ORDER_START });
 	try {
-		const response = await fetchingData.post(
-			'/api',
-			order,
-			tokenConfig(getState)
-		);
+		// const response = await fetchingData.post(
+		const response = await axios.post('/api', order, tokenConfig(getState));
 		const data = await response.data;
 		// console.log(JSON.stringify(data) + 'after await');
 		dispatch({ type: ADD_ORDER_SUCCESS, payload: data });
@@ -53,7 +51,7 @@ export const addOrderAsync = (order) => async (dispatch, getState) => {
 export const fetchOrder = (id) => async (dispatch) => {
 	dispatch({ type: FETCH_ORDER_START });
 	try {
-		const response = await fetchingData.get(`/api/${id}`);
+		const response = await axios.get(`/api/${id}`);
 		const data = await response.data;
 		dispatch({ type: FETCH_ORDER, payload: data });
 	} catch (error) {
@@ -64,7 +62,7 @@ export const fetchOrder = (id) => async (dispatch) => {
 };
 
 export const editOrder = (order) => (dispatch) => {
-	fetchingData
+	axios
 		.put(`/api/${order._id}`, order)
 		.then((res) =>
 			dispatch({
@@ -79,7 +77,7 @@ export const editOrder = (order) => (dispatch) => {
 };
 
 export const deleteOrder = (id) => (dispatch) => {
-	fetchingData
+	axios
 		.delete(`/api/${id}`)
 		.then((res) =>
 			dispatch({
