@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "//icecream-shop/static/css/main.5f361e03.chunk.css",
+    "main.js": "//icecream-shop/static/js/main.efa335b9.chunk.js",
+    "main.js.map": "//icecream-shop/static/js/main.efa335b9.chunk.js.map",
+    "runtime-main.js": "//icecream-shop/static/js/runtime-main.73804c4b.js",
+    "runtime-main.js.map": "//icecream-shop/static/js/runtime-main.73804c4b.js.map",
+    "static/css/2.af3c1da9.chunk.css": "//icecream-shop/static/css/2.af3c1da9.chunk.css",
+    "static/js/2.aa618de6.chunk.js": "//icecream-shop/static/js/2.aa618de6.chunk.js",
+    "static/js/2.aa618de6.chunk.js.map": "//icecream-shop/static/js/2.aa618de6.chunk.js.map",
+    "index.html": "//icecream-shop/index.html",
+    "precache-manifest.2c8e6d87a8ecad3c355d65ae1fa1be8c.js": "//icecream-shop/precache-manifest.2c8e6d87a8ecad3c355d65ae1fa1be8c.js",
+    "service-worker.js": "//icecream-shop/service-worker.js",
+    "static/css/2.af3c1da9.chunk.css.map": "//icecream-shop/static/css/2.af3c1da9.chunk.css.map",
+    "static/css/main.5f361e03.chunk.css.map": "//icecream-shop/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.aa618de6.chunk.js.LICENSE.txt": "//icecream-shop/static/js/2.aa618de6.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.73804c4b.js",
+    "static/css/2.af3c1da9.chunk.css",
+    "static/js/2.aa618de6.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.efa335b9.chunk.js"
+  ]
+}
