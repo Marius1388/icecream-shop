@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/icecream-shop/static/css/main.5f361e03.chunk.css",
-    "main.js": "/icecream-shop/static/js/main.fb80335a.chunk.js",
-    "main.js.map": "/icecream-shop/static/js/main.fb80335a.chunk.js.map",
+    "main.js": "/icecream-shop/static/js/main.f6cdb2bc.chunk.js",
+    "main.js.map": "/icecream-shop/static/js/main.f6cdb2bc.chunk.js.map",
     "runtime-main.js": "/icecream-shop/static/js/runtime-main.ee1e6db2.js",
     "runtime-main.js.map": "/icecream-shop/static/js/runtime-main.ee1e6db2.js.map",
     "static/css/2.af3c1da9.chunk.css": "/icecream-shop/static/css/2.af3c1da9.chunk.css",
     "static/js/2.aa618de6.chunk.js": "/icecream-shop/static/js/2.aa618de6.chunk.js",
     "static/js/2.aa618de6.chunk.js.map": "/icecream-shop/static/js/2.aa618de6.chunk.js.map",
     "index.html": "/icecream-shop/index.html",
-    "precache-manifest.e4b6170e00003f73d150fcf2a437dd83.js": "/icecream-shop/precache-manifest.e4b6170e00003f73d150fcf2a437dd83.js",
+    "precache-manifest.75576525ea75f58aa8745a77e0b91cc6.js": "/icecream-shop/precache-manifest.75576525ea75f58aa8745a77e0b91cc6.js",
     "service-worker.js": "/icecream-shop/service-worker.js",
     "static/css/2.af3c1da9.chunk.css.map": "/icecream-shop/static/css/2.af3c1da9.chunk.css.map",
     "static/css/main.5f361e03.chunk.css.map": "/icecream-shop/static/css/main.5f361e03.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.af3c1da9.chunk.css",
     "static/js/2.aa618de6.chunk.js",
     "static/css/main.5f361e03.chunk.css",
-    "static/js/main.fb80335a.chunk.js"
+    "static/js/main.f6cdb2bc.chunk.js"
   ]
 }
