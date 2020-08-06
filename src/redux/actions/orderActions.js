@@ -20,7 +20,7 @@ import { returnErrors } from './errorActions';
 export const getOrders = () => (dispatch) => {
 	dispatch(setOrdersLoading());
 	axios
-		.get('/api/')
+		.get('/api')
 		.then((res) =>
 			dispatch({
 				type: GET_ORDERS,
