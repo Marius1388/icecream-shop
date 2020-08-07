@@ -28,9 +28,11 @@ class OrdersList extends Component {
 
 	render() {
 		const { orders } = this.props.orders;
+		const user = this.props.user;
 		return (
 			<div className="container w-75">
-				<h1 className="">Orders List</h1>
+				<h1 className="">Icecream Orders List</h1>
+				<p>Note that you can edit or delete only your own order/-s</p>
 				{this.props.isAuthenticated ? (
 					<Button
 						color="dark"
@@ -50,7 +52,7 @@ class OrdersList extends Component {
 								<p>{order.flavour}</p>
 								<p>price: ${order.totalCost}</p>
 							</div>
-							{this.props.isAuthenticated ? (
+							{this.props.isAuthenticated && user._id === order.userId ? (
 								<div>
 									<Link
 										className="btn btn-warning p-2 mr-1"
@@ -75,6 +77,7 @@ class OrdersList extends Component {
 }
 
 const mapStateToProps = (state) => ({
+	user: state.auth.user,
 	orders: state.orders,
 	isAuthenticated: state.auth.isAuthenticated,
 });

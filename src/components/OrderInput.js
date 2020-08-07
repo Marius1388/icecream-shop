@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 class OrderInput extends React.Component {
 	state = {
+		userId: '',
 		flavour: '',
 		numberOfScoops: '',
 		pricePerScoop: '',
@@ -15,6 +16,7 @@ class OrderInput extends React.Component {
 	};
 
 	static propTypes = {
+		userId: PropTypes.string,
 		flavour: PropTypes.string,
 		numberOfScoops: PropTypes.number,
 		pricePerScoop: PropTypes.number,
@@ -23,7 +25,11 @@ class OrderInput extends React.Component {
 
 	onSelect = (e) => {
 		let obj = JSON.parse(e.target.value);
+		const { user } = this.props;
+		// console.log(user);
+
 		this.setState({
+			userId: user._id,
 			flavour: obj.name,
 			pricePerScoop: obj.pricePerScoop,
 			numberOfScoops: null,
@@ -44,6 +50,7 @@ class OrderInput extends React.Component {
 		const isAuthenticated = this.props.isAuthenticated;
 
 		const newOrder = {
+			userId: this.state.userId,
 			flavour: this.state.flavour,
 			numberOfScoops: parseInt(this.state.numberOfScoops),
 			pricePerScoop: this.state.pricePerScoop,
@@ -130,6 +137,7 @@ class OrderInput extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+	user: state.auth.user,
 	products: state.products,
 	isAuthenticated: state.auth.isAuthenticated,
 });

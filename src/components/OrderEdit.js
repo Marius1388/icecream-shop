@@ -10,6 +10,7 @@ import { editOrder, fetchOrder } from '../redux/actions/orderActions';
 
 class OrderEdit extends React.Component {
 	state = {
+		userId: '',
 		flavour: '',
 		numberOfScoops: '',
 		pricePerScoop: '',
@@ -18,7 +19,9 @@ class OrderEdit extends React.Component {
 
 	onSelect = (e) => {
 		let obj = JSON.parse(e.target.value);
+		const { user } = this.props;
 		this.setState({
+			userId: user._id,
 			flavour: obj.name,
 			pricePerScoop: obj.pricePerScoop,
 			numberOfScoops: null,
@@ -41,6 +44,7 @@ class OrderEdit extends React.Component {
 
 		const editedOrder = {
 			_id: this.props.match.params.id,
+			userId: this.state.userId,
 			flavour: this.state.flavour,
 			numberOfScoops: parseInt(this.state.numberOfScoops),
 			pricePerScoop: this.state.pricePerScoop,
@@ -143,6 +147,7 @@ class OrderEdit extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+	user: state.auth.user,
 	selectedOrder: state.orders.selectedOrder,
 	orders: state.orders,
 	// selectedOrder: state.orders[ownProps.match.params.id],
